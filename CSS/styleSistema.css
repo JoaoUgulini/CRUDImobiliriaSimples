@@ -1,0 +1,169 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #e74c3c;
+    --text-color: #333;
+    --bg-color: #f8f9fa;
+    --input-bg: #ffffff;
+    --border-color: #dee2e6;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+    font-family: 'Playfair Display', serif;
+    padding: 2rem;
+}
+
+form {
+    background-color: var(--input-bg);
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+label {
+    display: block;
+    color: var(--text-color);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="file"],
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+select {
+    cursor: pointer;
+    background-color: var(--input-bg);
+}
+
+/* Campos em linha */
+.medidas-group,
+.detalhes-group,
+.endereco-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+input[name="medidaFrente"],
+input[name="medidaLateral"] {
+    width: calc(50% - 0.5rem);
+}
+
+input[name="quarto"],
+input[name="banheiro"],
+input[name="garagem"] {
+    width: calc(33.33% - 0.7rem);
+}
+
+input[name="endereco"] {
+    width: 45%;
+}
+
+input[name="numero"] {
+    width: 15%;
+}
+
+input[name="complemento"] {
+    width: calc(40% - 1rem);
+
+}
+
+input[name="bairro"],
+input[name="cidade"],
+input[name="estado"] {
+    width: calc(33.33% - 0.7rem);
+}
+
+input[type="file"] {
+    padding: 8px;
+    background-color: var(--bg-color);
+}
+
+input[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.3s, background-color 0.3s;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    background-color: #34495e;
+}
+
+::placeholder {
+    color: #adb5bd;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    form {
+        padding: 1.5rem;
+    }
+
+    .medidas-group,
+    .detalhes-group,
+    .endereco-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    input[name="medidaFrente"],
+    input[name="medidaLateral"],
+    input[name="quarto"],
+    input[name="banheiro"],
+    input[name="garagem"],
+    input[name="endereco"],
+    input[name="numero"],
+    input[name="complemento"],
+    input[name="bairro"],
+    input[name="cidade"],
+    input[name="estado"] {
+        width: 100%;
+    }
+}

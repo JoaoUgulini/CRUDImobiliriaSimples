@@ -46,7 +46,8 @@ if (isset($_FILES['imgImovel'])) {
         } else {
             die("CPF não encontrado no cadastro de clientes");
         }
-        $sql = "Insert into imovel (id_Proprietario, titulo, tipo, finalidade, valor, medida_frente, medida_lateral, quartos, banheiros, vagas_garagem, endereco, numero, complemento, bairro, cidade, estado, path) values (:id_Proprietario, :titulo, :tipo, :finalidade, :valor, :medida_frente, :medida_lateral, :quartos, :banheiros, :vagas_garagem, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :path)";
+        $sql = "Insert into imovel (id_Proprietario, titulo, tipo, finalidade, valor, medida_frente, medida_lateral, quartos, banheiros, vagas_garagem, endereco, numero, complemento, bairro, cidade, estado, path) 
+                values (:id_Proprietario, :titulo, :tipo, :finalidade, :valor, :medida_frente, :medida_lateral, :quartos, :banheiros, :vagas_garagem, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :path)";
         $pstmt = $conexao->prepare($sql);
 
         $pstmt->bindValue(':id_Proprietario', $id_Proprietario);

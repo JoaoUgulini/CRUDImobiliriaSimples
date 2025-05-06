@@ -21,7 +21,6 @@
     </div>
     <input type="email" name="email" placeholder="Email"><br>
     <input type="password" name="senha" placeholder="Senha"><br><br>
-
     <input type="submit" name="entrar" value="Entrar">
     <input type="submit" name="cadastro" value="Não tenho cadastro">
 

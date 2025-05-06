@@ -7,7 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link href="../CSS/styleSistema.css" rel="stylesheet">
 </head>
-<body>
-
+<body >
+<menu>
+    <a href="TelaCadImovel.php">Cadastrar Imovel</a><br>
+    <a href="../frontend-Login/TelaCadCliente.php">Cadastrar Clientes</a><br>
+    <a href="TelaListarImovelFUNC.php">Listar Imovel</a><br>
+</menu>
 </body>
 </html>

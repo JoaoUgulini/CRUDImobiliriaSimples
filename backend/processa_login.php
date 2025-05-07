@@ -47,9 +47,9 @@ if ($pstmt->rowCount() == 1) {
         ];
 
         if ($perfil == 'funcionario') {
-            header("Location: ../frontend-sistema/area_funcionario.php");
+            header("Location: ../frontend-sistemaFunc/area_funcionario.php");
         } else {
-            header("Location: ../frontend-sistema/area_cliente.php");
+            header("Location: ../frontend-sistemaCliente/area_cliente.php");
         }
         exit();
     } else {

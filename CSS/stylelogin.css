@@ -17,19 +17,20 @@ body {
 }
 
 .containerFunc {
-    background-image: url(../imgLogin/imgFundoFUNC.jpg);
+    background-image: url(../imgFundo/imgFundoFUNC.jpg);
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 .containerCliente {
-    background-image: url(../imgLogin/imgFundoCliente.jpg);
+    background-image: url(../imgFundo/imgFundoCliente.jpg);
     background-position: center -700px;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 
 form {
     background-color: var(--input-bg);

@@ -12,7 +12,7 @@ if (isset($_FILES['imgImovel'])) {
     $nomeArquivo = $arquivo['name'];
     $novoArqNome = uniqid();
     $extensao = strtolower(pathinfo($nomeArquivo, PATHINFO_EXTENSION));
-    if ($extensao != "jpg" && $extensao != "png" && $extensao != "jpeg") {
+    if ($extensao != "jpg" && $extensao != "png" && $extensao != "jpeg" && $extensao != "jfif") {
         die("Tipo de arquivo nao aceito");
     }
     $caminhoCompleto = $pasta . $novoArqNome . "." . $extensao;
@@ -36,13 +36,13 @@ if (isset($_FILES['imgImovel'])) {
         $path = $caminhoCompleto;
 
         $conexao = conectar("bdimovel");
-        $sqlID = "SELECT id FROM cliente WHERE cpf = :cpf";
+        $sqlID = "SELECT id_cliente FROM cliente WHERE cpf = :cpf";
         $stmt = $conexao->prepare($sqlID);
         $stmt->bindValue(':cpf', $cpf);
         $stmt->execute();
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($resultado) {
-            $id_Proprietario = $resultado['id'];
+            $id_Proprietario = $resultado['id_cliente'];
         } else {
             die("CPF não encontrado no cadastro de clientes");
         }
@@ -70,7 +70,7 @@ if (isset($_FILES['imgImovel'])) {
         $pstmt->execute();
         $conexao = encerrar();
         echo "Imovel cadastrado";
-        header("Location: ../frontend-sistema/area_funcionario.php");
+        header("Location: ../frontend-sistemaFunc/area_funcionario.php");
         exit;
     }
 }

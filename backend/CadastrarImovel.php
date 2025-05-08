@@ -1,6 +1,10 @@
 <?php
-include_once 'conecao.php';
+
+require_once 'conecao.php';
+$con = new conexao(); // Instancia a classe de conexão
+$con->connect(); // Abre a conexão com o banco
 session_start();
+
 if (isset($_FILES['imgImovel'])) {
     $arquivo = $_FILES['imgImovel'];
 
@@ -34,46 +38,30 @@ if (isset($_FILES['imgImovel'])) {
         $cidade = $_POST['cidade'];
         $estado = $_POST['estado'];
         $path = $caminhoCompleto;
+        $consulta = $con->getConnection()->query("SELECT id_cliente FROM cliente WHERE cpf = '$cpf' ");
+        $campo = $consulta->fetch_assoc();
+        $id_Proprietario = $campo['id_cliente'];
+        $sql = "INSERT INTO imovel (
+            titulo, id_proprietario, tipo, finalidade, valor, 
+            medida_frente, medida_lateral, quartos, banheiros, 
+            vagas_garagem, endereco, numero, complemento, bairro, 
+            cidade, estado, path
+        ) VALUES (
+            '$titulo', $id_Proprietario, '$tipo', '$finalidade', $valor,
+            $medida_frente, $medida_lateral, $quartos, $banheiros,
+            $vagas_garagem, '$endereco', '$numero', '$complemento', '$bairro',
+            '$cidade', '$estado', '$path'
+        )";
 
-        $conexao = conectar("bdimovel");
-        $sqlID = "SELECT id_cliente FROM cliente WHERE cpf = :cpf";
-        $stmt = $conexao->prepare($sqlID);
-        $stmt->bindValue(':cpf', $cpf);
-        $stmt->execute();
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($resultado) {
-            $id_Proprietario = $resultado['id_cliente'];
+        if (!$con->getConnection()->query($sql)) {
+            echo "Erro ao inserir: " . $con->getConnection()->error;
+            exit;
         } else {
-            die("CPF não encontrado no cadastro de clientes");
+            header("Location: ../frontend-sistemaFunc/area_funcionario.php");
+            exit;
         }
-        $sql = "Insert into imovel (id_Proprietario, titulo, tipo, finalidade, valor, medida_frente, medida_lateral, quartos, banheiros, vagas_garagem, endereco, numero, complemento, bairro, cidade, estado, path) 
-                values (:id_Proprietario, :titulo, :tipo, :finalidade, :valor, :medida_frente, :medida_lateral, :quartos, :banheiros, :vagas_garagem, :endereco, :numero, :complemento, :bairro, :cidade, :estado, :path)";
-        $pstmt = $conexao->prepare($sql);
-
-        $pstmt->bindValue(':id_Proprietario', $id_Proprietario);
-        $pstmt->bindValue(':titulo', $titulo);
-        $pstmt->bindValue(':tipo', $tipo);
-        $pstmt->bindValue(':finalidade', $finalidade);
-        $pstmt->bindValue(':valor', $valor);
-        $pstmt->bindValue(':medida_frente', $medida_frente);
-        $pstmt->bindValue(':medida_lateral', $medida_lateral);
-        $pstmt->bindValue(':quartos', $quartos);
-        $pstmt->bindValue(':banheiros', $banheiros);
-        $pstmt->bindValue(':vagas_garagem', $vagas_garagem);
-        $pstmt->bindValue(':endereco', $endereco);
-        $pstmt->bindValue(':numero', $numero);
-        $pstmt->bindValue(':complemento', $complemento);
-        $pstmt->bindValue(':bairro', $bairro);
-        $pstmt->bindValue(':cidade', $cidade);
-        $pstmt->bindValue(':estado', $estado);
-        $pstmt->bindValue(':path', $path);
-        $pstmt->execute();
-        $conexao = encerrar();
-        echo "Imovel cadastrado";
-        header("Location: ../frontend-sistemaFunc/area_funcionario.php");
-        exit;
     }
 }
-?>
 
 ?>
+

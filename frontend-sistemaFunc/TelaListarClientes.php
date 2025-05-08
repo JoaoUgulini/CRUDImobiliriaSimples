@@ -1,5 +1,8 @@
 <?php
-include_once '../backend/conecao.php';
+require_once '../backend/conecao.php';
+$conn = new conexao();
+$conn->connect();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,36 +15,51 @@ include_once '../backend/conecao.php';
 </head>
 <body>
 <?php
-$conexao = conectar("bdimovel");
-$sql = "SELECT * FROM cliente";
-$pstmt = $conexao->prepare($sql);
-$pstmt->execute();
-$registros = $pstmt->fetchAll();
+try {
+    $sql = "SELECT id_cliente, nome, sobrenome, cpf, telefone, email, data_cadastro, ativo 
+            FROM cliente 
+            ORDER BY nome";
 
-echo '<div class="lista-clientes">';
-foreach ($registros as $registro) {
-    echo '<div class="cliente-item">';
-    echo '<div class="cliente-info">';
-    echo "<h2>" . $registro['nome'] . " " . $registro['sobrenome'] . "</h2>";
-    echo "<p><strong>CPF:</strong> " . $registro['cpf'] .
-        " | <strong>Tel:</strong> " . $registro['telefone'] .
-        " | <strong>Email:</strong> " . $registro['email'] . "</p>";
-    echo "<p><strong>Data Cadastro:</strong> " . $registro['data_cadastro'] .
-        " | <strong>Status:</strong> " . ($registro['ativo'] == 1 ? 'Ativo' : 'Desativado') . "</p>";
+    $resultado = $conn->getConnection()->query($sql);
+
+    if (!$resultado) {
+        throw new Exception("Erro ao buscar clientes: " . $conn->getConnection()->error);
+    }
+
+    echo '<div class="lista-clientes">';
+
+    while ($cliente = $resultado->fetch_assoc()) {
+        echo '<div class="cliente-item">';
+        echo '<div class="cliente-info">';
+        echo "<h2>" . htmlspecialchars($cliente['nome']) . " " . htmlspecialchars($cliente['sobrenome']) . "</h2>";
+        echo "<p><strong>CPF:</strong> " . htmlspecialchars($cliente['cpf']) .
+            " | <strong>Tel:</strong> " . htmlspecialchars($cliente['telefone']) .
+            " | <strong>Email:</strong> " . htmlspecialchars($cliente['email']) . "</p>";
+        echo "<p><strong>Data Cadastro:</strong> " . htmlspecialchars($cliente['data_cadastro']) .
+            " | <strong>Status:</strong> " . ($cliente['ativo'] == 1 ? 'Ativo' : 'Desativado') . "</p>";
+        echo '</div>';
+
+        echo '<div class="cliente-acoes">';
+        echo '<form method="post" action="TelaEditarCliente.php">';
+        echo '<input type="hidden" name="id_cliente" value="' . htmlspecialchars($cliente['id_cliente']) . '">';
+        echo '<button type="submit" class="btn-acao btn-editar">Editar</button>';
+        echo '</form>';
+
+        echo '<form method="post" action="../backend/DeletarCliente.php">';
+        echo '<input type="hidden" name="id_cliente" value="' . htmlspecialchars($cliente['id_cliente']) . '">';
+        echo '<button type="submit" name="deletar" class="btn-acao btn-excluir">Excluir</button>';
+        echo '</form>';
+        echo '</div>';
+        echo '</div>';
+    }
+
     echo '</div>';
-    echo '<div class="cliente-acoes">';
-    echo '<form method="post" action="TelaEditarCliente.php">';
-    echo '<input type="hidden" name="id_cliente" value="' . $registro['id_cliente'] . '">';
-    echo '<button type="submit" class="btn-acao btn-editar">Editar</button>';
-    echo '</form>';
-    echo '<form method="post" action="../backend/DeletarCliente.php">';
-    echo '<input type="hidden" name="id_cliente" value="' . $registro['id_cliente'] . '">';
-    echo '<button type="submit" name="deletar" class="btn-acao btn-excluir">Excluir</button>';
-    echo '</form>';
-    echo '</div>';
+
+} catch (Exception $e) {
+    echo '<div class="alert alert-danger">';
+    echo 'Erro: ' . $e->getMessage();
     echo '</div>';
 }
-echo '</div>';
 ?>
 </body>
 </html>

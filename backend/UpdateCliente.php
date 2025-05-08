@@ -1,5 +1,7 @@
 <?php
-include_once 'conecao.php';
+require_once 'conecao.php';
+$conn = new conexao();
+$conn->connect();
 session_start();
 
 $id_cliente = $_POST['id_cliente'];
@@ -11,19 +13,18 @@ $email = $_POST['email'];
 $senha = $_POST['senha'];
 $ativo = $_POST['ativo'];
 
-$conexao = conectar("bdimovel");
-$sql = "UPDATE cliente set nome = :nome, sobrenome = :sobrenome, cpf = :cpf, telefone = :telefone, email = :email, senha = :senha, ativo = :ativo WHERE id_cliente = :id_cliente";
-$pstmt = $conexao->prepare($sql);
-$pstmt->bindValue(':id_cliente', $id_cliente);
-$pstmt->bindValue(':nome', $nome);
-$pstmt->bindValue(':sobrenome', $sobrenome);
-$pstmt->bindValue(':cpf', $cpf);
-$pstmt->bindValue(':telefone', $telefone);
-$pstmt->bindValue(':email', $email);
-$pstmt->bindValue(':senha', $senha);
-$pstmt->bindValue(':ativo', $ativo);
-$pstmt->execute();
-$conexao = encerrar();
+
+$sql = "UPDATE cliente SET nome = ?,sobrenome = ?,cpf = ?,telefone = ?, email = ?,senha = ?,ativo = ? WHERE id_cliente = ?";
+
+$stmt = $conn->getConnection()->prepare($sql);
+
+$stmt->bind_param("ssssssii",$nome,$sobrenome,$cpf,$telefone,$email,$senha,$ativo,$id_cliente
+);
+
+$stmt->close();
+$conn->getConnection()->close();
+
 header("Location: ../frontend-sistemaFunc/area_funcionario.php");
-exit;
+exit();
+
 ?>

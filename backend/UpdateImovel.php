@@ -1,5 +1,7 @@
 <?php
-include_once 'conecao.php';
+require_once 'conecao.php';
+$conn = new conexao();
+$conn->connect();
 session_start();
 
 $id_imovel = $_POST['id_imovel'];
@@ -21,38 +23,19 @@ $cidade = $_POST['cidade'];
 $estado = $_POST['estado'];
 
 
-$conexao = conectar("bdimovel");
-$sqlID = "SELECT id_cliente FROM cliente WHERE cpf = :cpf";
-$stmt = $conexao->prepare($sqlID);
-$stmt->bindValue(':cpf', $cpf);
-$stmt->execute();
-$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-if ($resultado) {
-    $id_Proprietario = $resultado['id_cliente'];
-} else {
-    die("CPF não encontrado no cadastro de clientes");
-}
-$sql = "UPDATE imovel SET id_proprietario = :id_proprietario, titulo = :titulo, tipo = :tipo, finalidade = :finalidade, valor = :valor, medida_frente = :medida_frente, medida_lateral = :medida_lateral, quartos = :quartos, banheiros = :banheiros, vagas_garagem = :vagas_garagem, endereco = :endereco, numero = :numero, complemento = :complemento, bairro = :bairro, cidade = :cidade, estado = :estado WHERE id = :id";
-$pstmt = $conexao->prepare($sql);
-$pstmt->bindValue(':id', $id_imovel);
-$pstmt->bindValue(':id_proprietario', $id_Proprietario);
-$pstmt->bindValue(':titulo', $titulo);
-$pstmt->bindValue(':tipo', $tipo);
-$pstmt->bindValue(':finalidade', $finalidade);
-$pstmt->bindValue(':valor', $valor);
-$pstmt->bindValue(':medida_frente', $medida_frente);
-$pstmt->bindValue(':medida_lateral', $medida_lateral);
-$pstmt->bindValue(':quartos', $quartos);
-$pstmt->bindValue(':banheiros', $banheiros);
-$pstmt->bindValue(':vagas_garagem', $vagas_garagem);
-$pstmt->bindValue(':endereco', $endereco);
-$pstmt->bindValue(':numero', $numero);
-$pstmt->bindValue(':complemento', $complemento);
-$pstmt->bindValue(':bairro', $bairro);
-$pstmt->bindValue(':cidade', $cidade);
-$pstmt->bindValue(':estado', $estado);
-$pstmt->execute();
-$conexao = encerrar();
+$consulta = $conn->getConnection()->query("SELECT id_cliente FROM cliente WHERE cpf = '$cpf' ");
+$campo = $consulta->fetch_assoc();
+$id_Proprietario = $campo['id_cliente'];
+$sql = "UPDATE imovel SET id_proprietario = ?, titulo = ?, tipo = ?, finalidade = ?, valor = ?, medida_frente = ?, medida_lateral = ?, quartos = ?, banheiros = ?, vagas_garagem = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, estado = ? WHERE id = ?";
+
+$stmt = $conn->getConnection()->prepare($sql);
+
+$stmt->bind_param("iiissssssssssi",$id_Proprietario,$titulo,$tipo,$finalidade,$valor,$medida_frente,$medida_lateral,$quartos,$banheiros,$vagas_garagem,$endereco,$numero,$complemento,$bairro,$cidade,$estado,$id_imovel
+);
+$stmt->close();
+$conn->getConnection()->close();
+
+
 echo "Imovel atualizado";
 echo $id_imovel."<br>";
 echo $id_Proprietario."<br>";

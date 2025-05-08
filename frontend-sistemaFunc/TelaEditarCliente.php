@@ -1,14 +1,13 @@
 <?php
 require_once '../backend/conecao.php';
+$conn = new conexao(); // Instancia a classe de conexão
+$conn->connect(); // Abre a conexão com o banco
+
 $id = $_POST['id_cliente'];
+$consulta = $conn->getConnection()->query("SELECT * FROM cliente WHERE id_cliente = '$id'");
 
-$conexao = conectar("bdimovel");
-$sql = "SELECT * FROM cliente WHERE id_cliente = :id_cliente";
-$stmt = $conexao->prepare($sql);
-$stmt->bindParam(':id_cliente', $id);
-$stmt->execute();
-$cliente = $stmt->fetch(PDO::FETCH_ASSOC);
-
+if ($consulta) {
+$cliente = $consulta->fetch_assoc();}
 
 ?>
 <!DOCTYPE html>

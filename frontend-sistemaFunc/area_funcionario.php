@@ -11,7 +11,8 @@
 <menu>
     <a href="TelaCadImovel.php">Cadastrar Imovel</a><br>
     <a href="TelaListarImovelFUNC.php">Listar Imovel</a><br>
-    <a href="TelaListarClientes.php">Listar Clientes</a>
+    <a href="TelaListarClientes.php">Listar Clientes</a><br>
+    <a href="TelaIniciarVenda.php">Começar uma Venda</a>
 </menu>
 </body>
 </html>

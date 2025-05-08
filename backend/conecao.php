@@ -2,8 +2,8 @@
 class conexao
 {
     private $host = 'localhost';
-    private $usuario = 'root';  // usuário padrão do XAMPP
-    private $senha = '';        // senha padrão do XAMPP em branco
+    private $usuario = 'root';
+    private $senha = '';
     private $banco = 'bdimovel';
     private $conn;
     public function connect() {

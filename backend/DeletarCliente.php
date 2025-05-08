@@ -1,16 +1,13 @@
 <?php
 require_once '../backend/conecao.php';
-$conn = new conexao(); // Instancia a classe de conexão
-$conn->connect(); // Abre a conexão com o banco
+$conn = new conexao();
+$conn->connect();
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deletar'])) {
     $id_cliente = $_POST['id_cliente'];;
 
-    $sql = "DELETE FROM cliente WHERE id_cliente = :id_cliente";
-
-    $pstmt = $conexao->prepare($sql);
-    $conexao = encerrar();
+    $this->$conn->getConnection()->query("DELETE FROM cliente WHERE id_cliente = 'id_cliente' ");
     echo "$id_cliente";
     header("Location: ../frontend-sistemaFunc/TelaListarClientes.php");;
 }

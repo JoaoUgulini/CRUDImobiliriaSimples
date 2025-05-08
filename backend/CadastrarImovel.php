@@ -1,8 +1,8 @@
 <?php
 
 require_once 'conecao.php';
-$con = new conexao(); // Instancia a classe de conexão
-$con->connect(); // Abre a conexão com o banco
+$conn = new conexao();
+$conn->connect();
 session_start();
 
 if (isset($_FILES['imgImovel'])) {
@@ -38,7 +38,7 @@ if (isset($_FILES['imgImovel'])) {
         $cidade = $_POST['cidade'];
         $estado = $_POST['estado'];
         $path = $caminhoCompleto;
-        $consulta = $con->getConnection()->query("SELECT id_cliente FROM cliente WHERE cpf = '$cpf' ");
+        $consulta = $conn->getConnection()->query("SELECT id_cliente FROM cliente WHERE cpf = '$cpf' ");
         $campo = $consulta->fetch_assoc();
         $id_Proprietario = $campo['id_cliente'];
         $sql = "INSERT INTO imovel (
@@ -52,14 +52,9 @@ if (isset($_FILES['imgImovel'])) {
             $vagas_garagem, '$endereco', '$numero', '$complemento', '$bairro',
             '$cidade', '$estado', '$path'
         )";
-
-        if (!$con->getConnection()->query($sql)) {
-            echo "Erro ao inserir: " . $con->getConnection()->error;
-            exit;
-        } else {
             header("Location: ../frontend-sistemaFunc/area_funcionario.php");
             exit;
-        }
+
     }
 }
 

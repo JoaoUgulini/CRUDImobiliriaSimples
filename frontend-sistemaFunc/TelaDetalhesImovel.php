@@ -14,6 +14,9 @@ $baseImagePath = '../imgImovel/';
     <link href="../CSS/styleSistema.css" rel="stylesheet">
 </head>
 <body>
+<form action="TelaListarImovelFUNC.php" method="post">
+    <input type="submit" name="voltar" value="Voltar">
+</form>
 <div class="container-detalhes">
     <h1 class="titulo-detalhes"><?php echo $imovel['titulo']; ?></h1>
 

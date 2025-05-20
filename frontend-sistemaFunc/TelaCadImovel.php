@@ -8,6 +8,9 @@
     <link href="../CSS/styleSistema.css" rel="stylesheet">
 </head>
 <body>
+<form action="area_funcionario.php" method="post">
+    <input type="submit" name="voltar" value="Voltar">
+</form>
 <form enctype="multipart/form-data" action="../backend/CadastrarImovel.php" method="post">
     <label>Nome do Imovel</label>
     <input type="text" name="nomeImovel" placeholder="Nome do Imovel">

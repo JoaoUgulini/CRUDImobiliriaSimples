@@ -16,7 +16,7 @@
             <input type="radio" name="perfil" value="cliente" checked> Cliente
         </label>
         <label>
-            <input type="radio" name="perfil" value="funcionario"> Funcionário
+            <input type="radio" name="perfil" value="funcionario"> Funcionário.
         </label>
     </div>
     <input type="email" name="email" placeholder="Email"><br>

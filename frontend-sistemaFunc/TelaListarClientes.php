@@ -14,17 +14,17 @@ session_start();
     <link href="../CSS/styleSistema.css" rel="stylesheet">
 </head>
 <body>
+<form action="area_funcionario.php" method="post">
+    <input type="submit" name="voltar" value="Voltar">
+</form>
 <?php
-try {
+
     $sql = "SELECT id_cliente, nome, sobrenome, cpf, telefone, email, data_cadastro, ativo 
             FROM cliente 
             ORDER BY nome";
 
     $resultado = $conn->getConnection()->query($sql);
 
-    if (!$resultado) {
-        throw new Exception("Erro ao buscar clientes: " . $conn->getConnection()->error);
-    }
 
     echo '<div class="lista-clientes">';
 
@@ -55,11 +55,6 @@ try {
 
     echo '</div>';
 
-} catch (Exception $e) {
-    echo '<div class="alert alert-danger">';
-    echo 'Erro: ' . $e->getMessage();
-    echo '</div>';
-}
 ?>
 </body>
 </html>

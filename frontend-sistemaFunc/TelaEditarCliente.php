@@ -20,6 +20,9 @@ $cliente = $consulta->fetch_assoc();}
     <link href="../CSS/stylelogin.css" rel="stylesheet">
 </head>
 <body class="containerCliente">
+<form action="TelaListarClientes.php" method="post">
+    <input type="submit" name="voltar" value="Voltar">
+</form>
 <form action="telaListarClientes.php" method="post">
     <h1>Tela De Alteração de Clientes</h1>
     <input type="submit" name="voltar" value="Voltar">

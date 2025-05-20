@@ -32,6 +32,9 @@ $estado = $imovel['estado'];
     <link href="../CSS/styleSistema.css" rel="stylesheet">
 </head>
 <body>
+<form action="TelaListarImovelFUNC.php" method="post">
+    <input type="submit" name="voltar" value="Voltar">
+</form>
 <form enctype="multipart/form-data" action="../backend/UpdateImovel.php" method="post">
     <label>Nome do Imovel</label>
     <input type="text" name="nomeImovel" value="<?php echo $nomeImovel; ?>">

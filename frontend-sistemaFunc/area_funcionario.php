@@ -12,7 +12,8 @@
     <a href="TelaCadImovel.php">Cadastrar Imovel</a><br>
     <a href="TelaListarImovelFUNC.php">Listar Imovel</a><br>
     <a href="TelaListarClientes.php">Listar Clientes</a><br>
-    <a href="TelaIniciarVenda.php">Começar uma Venda</a>
+    <a href="TelaIniciarVenda.php">Começar uma Venda</a><br>
+    <a href="TelaVerVenda.php">Listar Vendas</a>
 </menu>
 </body>
 </html>

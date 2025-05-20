@@ -1,5 +1,6 @@
 <?php
 require_once 'conecao.php';
+require_once 'inserirlog.php';
 $conn = new conexao();
 $conn->connect();
 session_start();
@@ -20,6 +21,11 @@ $stmt = $conn->getConnection()->prepare($sql);
 
 $stmt->bind_param("ssssssii",$nome,$sobrenome,$cpf,$telefone,$email,$senha,$ativo,$id_cliente
 );
+$stmt->execute();
+
+$acao = "Atulizou o cadastro do cliente: ".$nome." ".$sobrenome." com o CPF: ".$cpf." ";
+echo $acao."<br>";
+inserirLog($_SESSION['id_funcionario'], 'Atualizou o Imóvel');
 
 $stmt->close();
 $conn->getConnection()->close();

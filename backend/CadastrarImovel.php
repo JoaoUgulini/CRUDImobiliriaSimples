@@ -1,5 +1,5 @@
 <?php
-
+require_once 'inserirlog.php';
 require_once 'conecao.php';
 $conn = new conexao();
 $conn->connect();
@@ -52,6 +52,9 @@ if (isset($_FILES['imgImovel'])) {
             $vagas_garagem, '$endereco', '$numero', '$complemento', '$bairro',
             '$cidade', '$estado', '$path'
         )";
+        $stmt = $conn->getConnection()->prepare($sql);
+        $stmt->execute();
+        inserirLog($_SESSION['id_funcionario'], 'Cadastrou um imovel');
             header("Location: ../frontend-sistemaFunc/area_funcionario.php");
             exit;
 

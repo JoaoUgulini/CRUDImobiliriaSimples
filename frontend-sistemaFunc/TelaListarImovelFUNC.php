@@ -14,6 +14,9 @@ session_start();
     <link href="../CSS/styleSistema.css" rel="stylesheet">
 </head>
 <body>
+<form action="area_funcionario.php" method="post">
+    <input type="submit" name="voltar" value="Voltar">
+</form>
 <?php
     $sql = "SELECT id, path, titulo, tipo, finalidade, valor FROM imovel WHERE ativo = 1 ORDER BY id";
 
